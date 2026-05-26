@@ -20,7 +20,8 @@
   "homepage": "https://github.com/joelqui15/se_project_express#readme",
   "dependencies": {
     "express": "^4.22.2",
-    "mongoose": "^8.24.0"
+    "mongoose": "^8.24.0",
+    "validator": "^13.15.35"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
