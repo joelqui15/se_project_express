@@ -1,0 +1,33 @@
+{
+  "name": "wtwr",
+  "version": "1.0.0",
+  "description": "weather app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joelqui15/se_project_express.git"
+  },
+  "author": "joel y quinones santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joelqui15/se_project_express/issues"
+  },
+  "homepage": "https://github.com/joelqui15/se_project_express#readme",
+  "dependencies": {
+    "express": "^4.22.2",
+    "mongoose": "^8.24.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.10.2",
+    "eslint-plugin-import": "^2.32.0",
+    "nodemon": "^3.1.14",
+    "prettier": "^2.8.8"
+  }
+}
