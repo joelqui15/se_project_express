@@ -12,9 +12,9 @@ const getUsers = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
   // get user by id
-  User.findById(id)
+  User.findById(_id)
     .then((user) => {
       res.send(user);
     })
