@@ -4,6 +4,7 @@ const getUsers = (req, res) => {
   // get all users
   User.find({})
     .then((users) => {
+      console.log("all users");
       res.send(users); // send users back to client side / front end
     })
     .catch((err) => {
@@ -15,7 +16,9 @@ const getUserById = (req, res) => {
   const { _id } = req.params;
   // get user by id
   User.findById(_id)
+
     .then((user) => {
+      console.log("one user");
       res.send(user);
     })
     .catch((err) => {
@@ -24,6 +27,7 @@ const getUserById = (req, res) => {
 };
 
 const createUser = (req, res) => {
+  console.log("create", req.body);
   const { name, avatar } = req.body;
 
   User.create({ name, avatar })

@@ -4,6 +4,7 @@ const getItems = (req, res) => {
   // get all users
   Item.find({})
     .then((items) => {
+      console.log("all items");
       res.send(items); // send users back to client side / front end
     })
     .catch((err) => {
@@ -16,6 +17,7 @@ const deleteItem = (req, res) => {
   // get user by id
   Item.findByIdAndDelete(_id)
     .then((item) => {
+      console.log("deleted");
       res.send(item);
     })
     .catch((err) => {
@@ -24,6 +26,7 @@ const deleteItem = (req, res) => {
 };
 
 const createItem = (req, res) => {
+  console.log("create", req.body);
   const { name, weather, imageUrl, owner } = req.body;
 
   Item.create({ name, weather, imageUrl, owner })
