@@ -13,5 +13,16 @@ mongoose // connect to MONGODB
   .catch(console.error);
 
 app.use(express.json()); // server now reads json request bodies
-app.use("/", router); // orchestrator for routes
-app.listen(PORT); //starts server and listens for request
+
+app.use((req, res, next) => {
+  req.user = {
+    _id: "6a196b6f15e023a528fe656e", // temporary auth middleware
+  };
+  next();
+});
+
+app.use("/", router); // Main Path
+
+app.listen(PORT, () => {
+  console.log("Server is running, now listening for request");
+}); //starts server and listens for request

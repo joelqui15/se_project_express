@@ -1,0 +1,5 @@
+const PAGE_NOT_FOUND = 404;
+const INVALID_DATA = 400;
+const SERVER_ERROR = 500;
+
+module.exports = { PAGE_NOT_FOUND, INVALID_DATA, SERVER_ERROR };

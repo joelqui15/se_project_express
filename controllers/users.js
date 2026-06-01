@@ -1,38 +1,66 @@
 const User = require("../models/users");
+const {
+  INVALID_DATA,
+  SERVER_ERROR,
+  PAGE_NOT_FOUND,
+} = require("../utils/errors");
 
 const getUsers = (req, res) => {
   // get all users
   User.find({})
     .then((users) => {
       console.log("all users");
-      res.send(users); // send users back to client side / front end
+      res.status(200).send(users); // send users back to client side / front end
     })
     .catch((err) => {
-      res.status(500).send(err); // error with proper status code incase things break
+      console.error(err);
+      if (err.name === "DocumentNotFoundError") {
+        return res.status(PAGE_NOT_FOUND).send({ message: "Users not found" });
+      }
+      return res
+        .status(SERVER_ERROR)
+        .send({ message: "Inetrnal server error, please try again later." }); // error with proper status code incase things break
     });
 };
 
 const getUserById = (req, res) => {
-  const { _id } = req.params;
+  const { userId } = req.params;
   // get user by id
-  User.findById(_id)
 
+  User.findById(userId)
+    .orFail()
     .then((user) => {
-      console.log("one user");
-      res.send(user);
+      res.status(200).send(user);
     })
     .catch((err) => {
-      res.status(500).send(err);
+      console.error(err);
+      if (err.name === "DocumentNotFoundError") {
+        return res.status(PAGE_NOT_FOUND).send({ message: "User not found" });
+      } else if (err.name === "CastError") {
+        return res.status(INVALID_DATA).send({ message: "Data not found" });
+      }
+      return res
+        .status(SERVER_ERROR)
+        .send({ message: "Inetrnal server error, please try again later." });
     });
 };
 
 const createUser = (req, res) => {
-  console.log("create", req.body);
   const { name, avatar } = req.body;
 
   User.create({ name, avatar })
     .then((user) => res.status(201).send({ data: user }))
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => {
+      console.error(err);
+      if (err.name === "ValidationError") {
+        return res
+          .status(INVALID_DATA)
+          .send({ message: "Invalid request data" });
+      }
+      return res
+        .status(SERVER_ERROR)
+        .send({ message: "Inetrnal server error, please try again later." });
+    });
 };
 
 module.exports = { getUsers, getUserById, createUser };
