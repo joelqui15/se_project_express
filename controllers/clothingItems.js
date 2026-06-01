@@ -1,4 +1,5 @@
 const Item = require("../models/clothingItems");
+
 const {
   INVALID_DATA,
   SERVER_ERROR,
@@ -8,7 +9,6 @@ const {
 const getItems = (req, res) => {
   Item.find({})
     .then((items) => {
-      console.log("all items");
       res.status(200).send(items);
     })
     .catch((err) => {
@@ -34,7 +34,8 @@ const deleteItem = (req, res) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
         return res.status(PAGE_NOT_FOUND).send({ message: "Item not found" });
-      } else if (err.name === "CastError") {
+      }
+      if (err.name === "CastError") {
         return res.status(INVALID_DATA).send({ message: "Item not found" });
       }
       return res
@@ -76,7 +77,8 @@ const likeItem = (req, res) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
         return res.status(PAGE_NOT_FOUND).send({ message: "Item not found" });
-      } else if (err.name === "CastError") {
+      }
+      if (err.name === "CastError") {
         return res.status(INVALID_DATA).send({ message: "Item not found" });
       }
       return res
@@ -101,7 +103,8 @@ const dislikeItem = (req, res) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
         return res.status(PAGE_NOT_FOUND).send({ message: "Item not found" });
-      } else if (err.name === "CastError") {
+      }
+      if (err.name === "CastError") {
         return res.status(INVALID_DATA).send({ message: "Item not found" });
       }
       return res

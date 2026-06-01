@@ -1,4 +1,5 @@
 const User = require("../models/users");
+
 const {
   INVALID_DATA,
   SERVER_ERROR,
@@ -8,7 +9,6 @@ const {
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => {
-      console.log("all users");
       res.status(200).send(users);
     })
     .catch((err) => {
@@ -34,7 +34,8 @@ const getUserById = (req, res) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
         return res.status(PAGE_NOT_FOUND).send({ message: "User not found" });
-      } else if (err.name === "CastError") {
+      }
+      if (err.name === "CastError") {
         return res.status(INVALID_DATA).send({ message: "Data not found" });
       }
       return res
