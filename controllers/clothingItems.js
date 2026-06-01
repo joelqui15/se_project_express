@@ -6,11 +6,10 @@ const {
 } = require("../utils/errors");
 
 const getItems = (req, res) => {
-  // get all users
   Item.find({})
     .then((items) => {
       console.log("all items");
-      res.status(200).send(items); // send users back to client side / front end
+      res.status(200).send(items);
     })
     .catch((err) => {
       console.error(err);
@@ -19,13 +18,13 @@ const getItems = (req, res) => {
       }
       return res
         .status(SERVER_ERROR)
-        .send({ message: "Inetrnal server error, please try again later." }); // error with proper status code incase things break
+        .send({ message: "Inetrnal server error, please try again later." });
     });
 };
 
 const deleteItem = (req, res) => {
   const { itemId } = req.params;
-  // get user by id
+
   Item.findByIdAndDelete(itemId)
     .orFail()
     .then((item) => {
@@ -65,7 +64,7 @@ const likeItem = (req, res) => {
   Item.findByIdAndUpdate(
     req.params.itemId,
     {
-      $addToSet: { likes: req.user._id }, // adds items to the array if not present
+      $addToSet: { likes: req.user._id },
     },
     { new: true }
   )
@@ -90,7 +89,7 @@ const dislikeItem = (req, res) => {
   Item.findByIdAndUpdate(
     req.params.itemId,
     {
-      $pull: { likes: req.user._id }, // adds items to the array if not present
+      $pull: { likes: req.user._id },
     },
     { new: true }
   )

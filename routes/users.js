@@ -1,6 +1,6 @@
-const router = require("express").Router(); // creates our router
+const router = require("express").Router();
 
-const { getUsers, getUserById, createUser } = require("../controllers/users"); // import controller methods
+const { getUsers, getUserById, createUser } = require("../controllers/users");
 
 router.get("/", getUsers);
 

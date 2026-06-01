@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const clothingItemSchema = new mongoose.Schema({
-  // our set of rules
   name: {
     type: String,
     minlength: 2,

@@ -6,11 +6,10 @@ const {
 } = require("../utils/errors");
 
 const getUsers = (req, res) => {
-  // get all users
   User.find({})
     .then((users) => {
       console.log("all users");
-      res.status(200).send(users); // send users back to client side / front end
+      res.status(200).send(users);
     })
     .catch((err) => {
       console.error(err);
@@ -19,13 +18,12 @@ const getUsers = (req, res) => {
       }
       return res
         .status(SERVER_ERROR)
-        .send({ message: "Inetrnal server error, please try again later." }); // error with proper status code incase things break
+        .send({ message: "Inetrnal server error, please try again later." });
     });
 };
 
 const getUserById = (req, res) => {
   const { userId } = req.params;
-  // get user by id
 
   User.findById(userId)
     .orFail()

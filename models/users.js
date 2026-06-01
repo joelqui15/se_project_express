@@ -1,11 +1,6 @@
-// model allows us to speak with mongodb
-//shows what our DB documents look like
-
 const mongoose = require("mongoose");
 const validator = require("validator");
 const userSchema = new mongoose.Schema({
-  // our set of rules
-
   name: {
     type: String,
     required: true,
