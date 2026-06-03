@@ -8,4 +8,8 @@ router.use("/users", userRouter);
 
 router.use("/items", clothingItemRouter);
 
+router.use((req, res) =>
+  res.status(PAGE_NOT_FOUND).send({ message: "Requested resource not found" })
+);
+
 module.exports = router;
