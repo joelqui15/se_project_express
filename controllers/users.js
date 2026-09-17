@@ -1,9 +1,11 @@
+const bcrypt = require("bcryptjs");
 const User = require("../models/users");
 
 const {
   INVALID_DATA,
   SERVER_ERROR,
   PAGE_NOT_FOUND,
+  CONFLICT_ERROR,
 } = require("../utils/errors");
 
 const getUsers = (req, res) => {
@@ -45,9 +47,13 @@ const getUserById = (req, res) => {
 };
 
 const createUser = (req, res) => {
-  const { name, avatar } = req.body;
+  const { name, avatar, email, password } = req.body;
+  return bcrypt
+    .hash(password, 10)
 
-  User.create({ name, avatar })
+    .then((hash) => {
+      return User.create({ name, avatar, email, password: hash });
+    })
     .then((user) => res.status(201).send({ data: user }))
     .catch((err) => {
       console.error(err);
@@ -56,9 +62,14 @@ const createUser = (req, res) => {
           .status(INVALID_DATA)
           .send({ message: "Invalid request data" });
       }
-      return res
-        .status(SERVER_ERROR)
-        .send({ message: "Inetrnal server error, please try again later." });
+      if (err.code === 11000) {
+        return res
+          .status(CONFLICT_ERROR)
+          .send({ message: "Email already exists" });
+      }
+      return res.status(SERVER_ERROR).send({
+        message: "Internal server error, please try again later.",
+      });
     });
 };
 
