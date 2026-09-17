@@ -1,12 +1,16 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/users");
+const jwt = require("jsonwebtoken");
 
 const {
   INVALID_DATA,
   SERVER_ERROR,
   PAGE_NOT_FOUND,
   CONFLICT_ERROR,
+  UNAUTHORIZED,
 } = require("../utils/errors");
+
+const { JWT_SECRET } = require("../utils/config");
 
 const getUsers = (req, res) => {
   User.find({})
@@ -73,4 +77,20 @@ const createUser = (req, res) => {
     });
 };
 
-module.exports = { getUsers, getUserById, createUser };
+const login = (req, res) => {
+  const { email, password } = req.body;
+
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
+        expiresIn: "7d",
+      });
+
+      return res.send({ token });
+    })
+    .catch((err) => {
+      return res.status(UNAUTHORIZED).send({ message: err.message });
+    });
+};
+
+module.exports = { getUsers, getUserById, createUser, login };
