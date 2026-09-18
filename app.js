@@ -17,13 +17,6 @@ const router = require("./routes/index");
 
 app.use(express.json()); // allows express to read json sent in the request
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: "6a196b6f15e023a528fe656e",
-  };
-  next();
-});
-
 app.use("/", router); // Main route
 
 app.listen(PORT, () => {

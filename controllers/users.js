@@ -12,24 +12,8 @@ const {
 
 const { JWT_SECRET } = require("../utils/config");
 
-const getUsers = (req, res) => {
-  User.find({})
-    .then((users) => {
-      res.status(200).send(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      if (err.name === "DocumentNotFoundError") {
-        return res.status(PAGE_NOT_FOUND).send({ message: "Users not found" });
-      }
-      return res
-        .status(SERVER_ERROR)
-        .send({ message: "Inetrnal server error, please try again later." });
-    });
-};
-
-const getUserById = (req, res) => {
-  const { userId } = req.params;
+const getCurrentUser = (req, res) => {
+  const userId = req.user._id;
 
   User.findById(userId)
     .orFail()
@@ -46,7 +30,7 @@ const getUserById = (req, res) => {
       }
       return res
         .status(SERVER_ERROR)
-        .send({ message: "Inetrnal server error, please try again later." });
+        .send({ message: "Internal server error, please try again later." });
     });
 };
 
@@ -93,4 +77,4 @@ const login = (req, res) => {
     });
 };
 
-module.exports = { getUsers, getUserById, createUser, login };
+module.exports = { getUsers, getCurrentUser, createUser, login };
