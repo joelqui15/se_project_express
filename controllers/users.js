@@ -7,7 +7,6 @@ const {
   SERVER_ERROR,
   PAGE_NOT_FOUND,
   CONFLICT_ERROR,
-  UNAUTHORIZED,
 } = require("../utils/errors");
 
 const { JWT_SECRET } = require("../utils/config");
