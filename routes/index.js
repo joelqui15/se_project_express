@@ -6,6 +6,8 @@ const clothingItemRouter = require("./clothingItems");
 
 const { login, createUser } = require("../controllers/users");
 
+const { PAGE_NOT_FOUND } = require("../utils/errors");
+
 router.use("/users", userRouter);
 
 router.use("/items", clothingItemRouter);

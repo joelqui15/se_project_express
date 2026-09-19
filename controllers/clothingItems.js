@@ -38,9 +38,7 @@ const deleteItem = (req, res) => {
 
       return item.deleteOne();
     })
-    .then((deletedItem) => {
-      return res.status(200).send(deletedItem);
-    })
+    .then((deletedItem) => res.status(200).send(deletedItem))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {

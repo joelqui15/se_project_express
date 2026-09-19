@@ -1,5 +1,7 @@
 const express = require("express"); // imports express
+
 const cors = require("cors");
+
 const app = express();
 
 const { PORT = 3001 } = process.env; // check for port inside env if not use default 3001

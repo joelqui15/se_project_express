@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
-const User = require("../models/users");
 const jwt = require("jsonwebtoken");
+const User = require("../models/users");
 
 const {
   INVALID_DATA,
@@ -16,9 +16,7 @@ const getCurrentUser = (req, res) => {
 
   User.findById(userId)
     .orFail()
-    .then((user) => {
-      return res.status(200).send(user);
-    })
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
@@ -43,9 +41,7 @@ const updateCurrentUser = (req, res) => {
     { runValidators: true, new: true }
   )
     .orFail()
-    .then((user) => {
-      return res.status(200).send({ data: user });
-    })
+    .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
@@ -67,9 +63,7 @@ const createUser = (req, res) => {
   return bcrypt
     .hash(password, 10)
 
-    .then((hash) => {
-      return User.create({ name, avatar, email, password: hash });
-    })
+    .then((hash) => User.create({ name, avatar, email, password: hash }))
     .then((user) => {
       const userObj = user.toObject();
       delete userObj.password;
