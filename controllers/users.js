@@ -106,7 +106,9 @@ const login = (req, res) => {
       return res.send({ token });
     })
     .catch((err) => {
-      return res.status(UNAUTHORIZED).send({ message: err.message });
+      console.error(err);
+
+      return res.status(400).send({ message: "Invalid email or password" });
     });
 };
 

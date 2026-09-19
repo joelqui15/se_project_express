@@ -10,13 +10,14 @@ This back-end project focuses on developing the server-side functionality for th
 
 ## Functionality
 
-- Create users
-- Retrieve users
+- sign up to create user
+- sign in to retrieve user
 - Create clothing items
 - Delete clothing items
 - Handle invalid routes and errors
 - Connect to MongoDB database
 - Validate incoming request data
+- JWT authorization/authentication
 
 ## Technologies
 
@@ -31,6 +32,8 @@ This back-end project focuses on developing the server-side functionality for th
 
 Link to video overview:
 https://drive.google.com/file/d/1pELXNZ1ntpB7axllFhX_kkhuAb1cIa2G/view?usp=sharing
+
+Updated overviewview link:
 
 ### Testing
 
