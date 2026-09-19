@@ -3,6 +3,7 @@ const INVALID_DATA = 400;
 const UNAUTHORIZED = 401;
 const SERVER_ERROR = 500;
 const CONFLICT_ERROR = 409;
+const FORBIDDEN_ERROR = 403;
 
 module.exports = {
   PAGE_NOT_FOUND,
@@ -10,4 +11,5 @@ module.exports = {
   SERVER_ERROR,
   CONFLICT_ERROR,
   UNAUTHORIZED,
+  FORBIDDEN_ERROR,
 };
