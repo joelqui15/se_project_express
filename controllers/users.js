@@ -7,6 +7,7 @@ const {
   SERVER_ERROR,
   PAGE_NOT_FOUND,
   CONFLICT_ERROR,
+  UNAUTHORIZED,
 } = require("../utils/errors");
 
 const { JWT_SECRET } = require("../utils/config");
@@ -89,7 +90,11 @@ const createUser = (req, res) => {
 
 const login = (req, res) => {
   const { email, password } = req.body;
-
+  if (!email || !password) {
+    return res
+      .status(INVALID_DATA)
+      .send({ message: "Email and password are required" });
+  }
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
@@ -100,8 +105,12 @@ const login = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-
-      return res.status(400).send({ message: "Invalid email or password" });
+      if (err.message === "Incorrect email or password") {
+        return res.status(UNAUTHORIZED).send({ message: err.message });
+      }
+      return res.status(SERVER_ERROR).send({
+        message: "Internal server error, please try again later.",
+      });
     });
 };
 
