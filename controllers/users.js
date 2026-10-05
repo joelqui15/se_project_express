@@ -42,7 +42,7 @@ const updateCurrentUser = (req, res) => {
     { runValidators: true, new: true }
   )
     .orFail()
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
@@ -68,7 +68,7 @@ const createUser = (req, res) => {
     .then((user) => {
       const userObj = user.toObject();
       delete userObj.password;
-      return res.status(201).send({ data: userObj });
+      return res.status(201).send(userObj);
     })
     .catch((err) => {
       console.error(err);
