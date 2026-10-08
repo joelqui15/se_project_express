@@ -19,9 +19,13 @@ app.use(cors());
 
 const router = require("./routes/index");
 
+const errorHandler = require("../se_project_express/middleware/error-handler");
+
 app.use(express.json()); // allows express to read json sent in the request
 
 app.use("/", router); // Main route
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log("Server is running, now listening for request");
