@@ -6,18 +6,18 @@ const clothingItemRouter = require("./clothingItems");
 
 const { login, createUser } = require("../controllers/users");
 
-const { PAGE_NOT_FOUND } = require("../utils/errors");
+const { validateUser, validateLogin } = require("../middleware/validation");
 
 router.use("/users", userRouter);
 
 router.use("/items", clothingItemRouter);
 
-router.post("/signin", login);
+router.post("/signin", validateLogin, login);
 
-router.post("/signup", createUser);
+router.post("/signup", validateUser, createUser);
 
 router.use((req, res) =>
-  res.status(PAGE_NOT_FOUND).send({ message: "Requested resource not found" })
+  res.status(404).send({ message: "Requested resource not found" })
 );
 
 module.exports = router;

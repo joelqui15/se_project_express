@@ -2,6 +2,8 @@ const express = require("express"); // imports express
 
 const cors = require("cors");
 
+const { errors } = require("celebrate");
+
 const app = express();
 
 const { PORT = 3001 } = process.env; // check for port inside env if not use default 3001
@@ -24,6 +26,8 @@ const errorHandler = require("../se_project_express/middleware/error-handler");
 app.use(express.json()); // allows express to read json sent in the request
 
 app.use("/", router); // Main route
+
+app.use(errors());
 
 app.use(errorHandler);
 
