@@ -23,10 +23,15 @@ const router = require("./routes/index");
 
 const errorHandler = require("../se_project_express/middleware/error-handler");
 
+const {
+  requestLogger,
+  errorLogger,
+} = require("../se_project_express/middleware/logger.js");
+
 app.use(express.json()); // allows express to read json sent in the request
-
+app.use(requestLogger);
 app.use("/", router); // Main route
-
+app.use(errorLogger);
 app.use(errors());
 
 app.use(errorHandler);
