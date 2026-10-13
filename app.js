@@ -3,6 +3,14 @@ const express = require("express"); // imports express
 const cors = require("cors");
 
 const { errors } = require("celebrate");
+const router = require("./routes/index");
+
+const errorHandler = require("../se_project_express/middleware/error-handler");
+
+const {
+  requestLogger,
+  errorLogger,
+} = require("../se_project_express/middleware/logger.js");
 
 const app = express();
 
@@ -19,16 +27,8 @@ mongoose
 
 app.use(cors());
 
-const router = require("./routes/index");
-
-const errorHandler = require("../se_project_express/middleware/error-handler");
-
-const {
-  requestLogger,
-  errorLogger,
-} = require("../se_project_express/middleware/logger.js");
-
-app.use(express.json()); // allows express to read json sent in the request
+app.use(cors()); // allows express to read json sent in the request
+app.use(express.json());
 app.use(requestLogger);
 app.use("/", router); // Main route
 app.use(errorLogger);
