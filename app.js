@@ -1,7 +1,7 @@
 const express = require("express"); // imports express
 
 const cors = require("cors");
-
+require("dotenv").config;
 const { errors } = require("celebrate");
 const router = require("./routes/index");
 
