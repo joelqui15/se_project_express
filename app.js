@@ -1,22 +1,18 @@
 const express = require("express"); // imports express
-
 const cors = require("cors");
-require("dotenv").config;
+require("dotenv").config();
 const { errors } = require("celebrate");
-const router = require("./routes/index");
-
-const errorHandler = require("../se_project_express/middleware/error-handler");
-
-const {
-  requestLogger,
-  errorLogger,
-} = require("../se_project_express/middleware/logger.js");
+const mongoose = require("mongoose"); // connect DB needs to be before router
 
 const app = express();
 
-const { PORT = 3001 } = process.env; // check for port inside env if not use default 3001
+const router = require("./routes/index");
 
-const mongoose = require("mongoose"); // connect DB needs to be before router
+const errorHandler = require("./middleware/error-handler");
+
+const { requestLogger, errorLogger } = require("./middleware/logger");
+
+const { PORT = 3001 } = process.env; // check for port inside env if not use default 3001
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/wtwr_db")
@@ -26,10 +22,13 @@ mongoose
   .catch(console.error);
 
 app.use(cors());
-
-app.use(cors()); // allows express to read json sent in the request
 app.use(express.json());
 app.use(requestLogger);
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("Server will crash now");
+  }, 0);
+});
 app.use("/", router); // Main route
 app.use(errorLogger);
 app.use(errors());
