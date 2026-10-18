@@ -107,6 +107,6 @@ https://drive.google.com/file/d/1OYLxQ9VE6-6RJVD8k2HRdLLcUxagZwFq/view?usp=drive
 
 ### Sprint 15 — Full-Stack Project Pitch
 
-Video demonstration:
+Video demonstration: https://drive.google.com/file/d/1DsMrDV3dOdcGUJELYnymWmiCepB3UddP/view?usp=sharing
 
 This demonstration covers the completed WTWR full-stack application, including frontend functionality, backend development, authentication, database integration, and cloud deployment.
